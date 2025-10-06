@@ -1,0 +1,43 @@
+{
+  "name": "pipeline1",
+  "appVersion": "d2f0e855-a28c-11f0-a43d-e666cc79bc16",
+  "description": "Data Pipeline Application",
+  "change": {
+    "author": "cdap",
+    "creationTimeMillis": 1759738616845,
+    "latest": true
+  },
+  "configuration": "{\"resources\":{\"memoryMB\":2048.0,\"virtualCores\":1.0},\"driverResources\":{\"memoryMB\":2048.0,\"virtualCores\":1.0},\"connections\":[{\"from\":\"BigQuery\",\"to\":\"BigQuery2\"}],\"comments\":[],\"postActions\":[],\"properties\":{},\"processTimingEnabled\":true,\"stageLoggingEnabled\":false,\"stages\":[{\"name\":\"BigQuery\",\"plugin\":{\"name\":\"BigQueryTable\",\"type\":\"batchsource\",\"label\":\"BigQuery\",\"artifact\":{\"name\":\"google-cloud\",\"version\":\"0.24.1\",\"scope\":\"SYSTEM\"},\"properties\":{\"useConnection\":\"false\",\"project\":\"indigo-coder-472404-b9\",\"datasetProject\":\"indigo-coder-472404-b9\",\"serviceAccountType\":\"filePath\",\"serviceFilePath\":\"auto-detect\",\"referenceName\":\"ref\",\"dataset\":\"banking_demo\",\"table\":\"customer_avg_transaction\",\"readTimeout\":\"120\",\"enableQueryingViews\":\"false\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"output\\\",\\\"fields\\\":[{\\\"name\\\":\\\"customer_id\\\",\\\"type\\\":[\\\"long\\\",\\\"null\\\"]},{\\\"name\\\":\\\"name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"avg_transaction_amount\\\",\\\"type\\\":[\\\"double\\\",\\\"null\\\"]}]}\"}},\"outputSchema\":[{\"name\":\"etlSchemaBody\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"output\\\",\\\"fields\\\":[{\\\"name\\\":\\\"customer_id\\\",\\\"type\\\":[\\\"long\\\",\\\"null\\\"]},{\\\"name\\\":\\\"name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"avg_transaction_amount\\\",\\\"type\\\":[\\\"double\\\",\\\"null\\\"]}]}\"}],\"id\":\"BigQuery\"},{\"name\":\"BigQuery2\",\"plugin\":{\"name\":\"BigQueryTable\",\"type\":\"batchsink\",\"label\":\"BigQuery2\",\"artifact\":{\"name\":\"google-cloud\",\"version\":\"0.24.1\",\"scope\":\"SYSTEM\"},\"properties\":{\"useConnection\":\"false\",\"project\":\"auto-detect\",\"datasetProject\":\"indigo-coder-472404-b9\",\"serviceAccountType\":\"filePath\",\"serviceFilePath\":\"auto-detect\",\"dataset\":\"bank\",\"table\":\"table1\",\"operation\":\"insert\",\"truncateTable\":\"false\",\"allowSchemaRelaxation\":\"false\",\"readTimeout\":\"120\",\"location\":\"US\",\"createPartitionedTable\":\"false\",\"partitioningType\":\"TIME\",\"timePartitioningType\":\"DAY\",\"partitionFilterRequired\":\"false\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"output\\\",\\\"fields\\\":[{\\\"name\\\":\\\"customer_id\\\",\\\"type\\\":[\\\"long\\\",\\\"null\\\"]},{\\\"name\\\":\\\"name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"avg_transaction_amount\\\",\\\"type\\\":[\\\"double\\\",\\\"null\\\"]}]}\"}},\"outputSchema\":[{\"name\":\"etlSchemaBody\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"output\\\",\\\"fields\\\":[{\\\"name\\\":\\\"customer_id\\\",\\\"type\\\":[\\\"long\\\",\\\"null\\\"]},{\\\"name\\\":\\\"name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"avg_transaction_amount\\\",\\\"type\\\":[\\\"double\\\",\\\"null\\\"]}]}\"}],\"inputSchema\":[{\"name\":\"BigQuery\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"output\\\",\\\"fields\\\":[{\\\"name\\\":\\\"customer_id\\\",\\\"type\\\":[\\\"long\\\",\\\"null\\\"]},{\\\"name\\\":\\\"name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"avg_transaction_amount\\\",\\\"type\\\":[\\\"double\\\",\\\"null\\\"]}]}\"}],\"id\":\"BigQuery2\"}],\"schedule\":\"0 1 */1 * *\",\"engine\":\"spark\",\"numOfRecordsPreview\":100.0,\"rangeRecordsPreview\":{\"min\":1.0,\"max\":\"5000\"},\"maxConcurrentRuns\":1.0}",
+  "datasets": [],
+  "programs": [
+    {
+      "type": "Spark",
+      "app": "pipeline1",
+      "name": "phase-1",
+      "description": "Sources \u0027BigQuery\u0027 to sinks \u0027BigQuery2\u0027."
+    },
+    {
+      "type": "Workflow",
+      "app": "pipeline1",
+      "name": "DataPipelineWorkflow",
+      "description": "Data Pipeline Workflow"
+    }
+  ],
+  "plugins": [
+    {
+      "id": "BigQuery2",
+      "name": "BigQueryTable",
+      "type": "batchsink"
+    },
+    {
+      "id": "BigQuery",
+      "name": "BigQueryTable",
+      "type": "batchsource"
+    }
+  ],
+  "artifact": {
+    "name": "cdap-data-pipeline",
+    "version": "6.11.1",
+    "scope": "SYSTEM"
+  }
+}
